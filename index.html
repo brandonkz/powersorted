@@ -120,7 +120,12 @@
                 </optgroup>
               </select>
               <div class="usage-inputs">
-                <input type="number" id="hours-per-day" placeholder="Hours/day" min="0" max="24" step="0.5" value="1">
+                <input type="number" id="usage-amount" placeholder="Usage" min="0" step="0.1" value="1">
+                <select id="usage-type" class="select-input-small">
+                  <option value="hours">hours/day</option>
+                  <option value="minutes">minutes/use</option>
+                </select>
+                <input type="number" id="times-per-day" placeholder="Times/day" min="0" max="100" step="1" value="1" style="display:none;">
                 <button id="add-appliance-btn" class="btn-add">+ Add</button>
               </div>
             </div>

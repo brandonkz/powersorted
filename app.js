@@ -67,7 +67,9 @@ let applianceCounter = 0;
 const municipalitySelect = document.getElementById('municipality');
 const currentTariffEl = document.getElementById('current-tariff');
 const applianceSelect = document.getElementById('appliance-select');
-const hoursPerDayInput = document.getElementById('hours-per-day');
+const usageAmountInput = document.getElementById('usage-amount');
+const usageTypeSelect = document.getElementById('usage-type');
+const timesPerDayInput = document.getElementById('times-per-day');
 const addApplianceBtn = document.getElementById('add-appliance-btn');
 const applianceList = document.getElementById('appliance-list');
 const calculateBtn = document.getElementById('calculate-btn');
@@ -77,11 +79,13 @@ const loadsheddingSection = document.getElementById('loadshedding-section');
 
 // Event Listeners
 municipalitySelect.addEventListener('change', updateTariff);
+usageTypeSelect.addEventListener('change', toggleUsageMode);
 addApplianceBtn.addEventListener('click', addAppliance);
 calculateBtn.addEventListener('click', calculateCosts);
 
 // Initialize
 updateTariff();
+toggleUsageMode();
 
 function updateTariff() {
   const municipality = municipalitySelect.value;
@@ -94,17 +98,47 @@ function updateTariff() {
   }
 }
 
+function toggleUsageMode() {
+  const usageType = usageTypeSelect.value;
+  if (usageType === 'minutes') {
+    timesPerDayInput.style.display = 'block';
+    usageAmountInput.placeholder = 'Minutes';
+  } else {
+    timesPerDayInput.style.display = 'none';
+    usageAmountInput.placeholder = 'Hours';
+  }
+}
+
 function addAppliance() {
   const applianceId = applianceSelect.value;
-  const hoursPerDay = parseFloat(hoursPerDayInput.value);
+  const usageAmount = parseFloat(usageAmountInput.value);
+  const usageType = usageTypeSelect.value;
+  const timesPerDay = usageType === 'minutes' ? parseFloat(timesPerDayInput.value) : 1;
   
-  if (!applianceId || !hoursPerDay || hoursPerDay <= 0) {
-    alert('Please select an appliance and enter valid hours per day');
+  if (!applianceId || !usageAmount || usageAmount <= 0) {
+    alert('Please select an appliance and enter valid usage');
+    return;
+  }
+  
+  if (usageType === 'minutes' && (!timesPerDay || timesPerDay <= 0)) {
+    alert('Please enter how many times per day you use this appliance');
     return;
   }
   
   const applianceData = APPLIANCES[applianceId];
   if (!applianceData) return;
+  
+  // Convert to hours per day for calculations
+  let hoursPerDay;
+  let displayUsage;
+  
+  if (usageType === 'minutes') {
+    hoursPerDay = (usageAmount / 60) * timesPerDay;
+    displayUsage = `${usageAmount} min × ${timesPerDay} times/day`;
+  } else {
+    hoursPerDay = usageAmount;
+    displayUsage = `${usageAmount} hours/day`;
+  }
   
   const appliance = {
     id: applianceCounter++,
@@ -112,6 +146,7 @@ function addAppliance() {
     name: applianceData.name,
     watts: applianceData.watts,
     hoursPerDay: hoursPerDay,
+    displayUsage: displayUsage,
     category: applianceData.category
   };
   
@@ -119,7 +154,8 @@ function addAppliance() {
   renderApplianceList();
   
   // Reset inputs
-  hoursPerDayInput.value = 1;
+  usageAmountInput.value = 1;
+  timesPerDayInput.value = 1;
 }
 
 function removeAppliance(id) {
@@ -149,7 +185,7 @@ function renderApplianceList() {
       <div class="appliance-item">
         <div class="appliance-info">
           <div class="appliance-name">${a.name}</div>
-          <div class="appliance-details">${a.watts}W × ${a.hoursPerDay}h/day</div>
+          <div class="appliance-details">${a.watts}W × ${a.displayUsage}</div>
         </div>
         <div class="appliance-cost">R ${dailyCost.toFixed(2)}/day</div>
         <button class="btn-remove" onclick="removeAppliance(${a.id})" title="Remove">×</button>
@@ -219,7 +255,7 @@ function generatePriorityList() {
         <div class="priority-rank">${index + 1}</div>
         <div class="priority-info">
           <div class="priority-name">${a.name}</div>
-          <div class="priority-impact">${a.hoursPerDay}h/day × ${a.watts}W = ${a.dailyKwh.toFixed(2)} kWh/day</div>
+          <div class="priority-impact">${a.watts}W × ${a.displayUsage} = ${a.dailyKwh.toFixed(2)} kWh/day</div>
         </div>
         <div class="priority-cost">${savings}</div>
       </div>
