@@ -26,6 +26,7 @@ const APPLIANCES = {
   // Kitchen
   'stove-2000': { name: 'Stove Plate (2kW)', watts: 2000, category: 'kitchen', defaultMinutes: 30, defaultTimes: 2, hint: 'Typical: 30-60 min per meal', useMinutes: true },
   'oven-2400': { name: 'Oven (2.4kW)', watts: 2400, category: 'kitchen', defaultMinutes: 40, defaultTimes: 1, hint: 'Typical: 40-90 min per use', useMinutes: true },
+  'air-fryer-1500': { name: 'Air Fryer (1.5kW)', watts: 1500, category: 'kitchen', defaultMinutes: 25, defaultTimes: 1, hint: 'Typical: 20-30 min × 1-2 times/day', useMinutes: true },
   'kettle-2200': { name: 'Kettle (2.2kW)', watts: 2200, category: 'kitchen', defaultMinutes: 3, defaultTimes: 6, hint: 'Typical: 3 min × 4-8 times/day', useMinutes: true },
   'microwave-1000': { name: 'Microwave (1kW)', watts: 1000, category: 'kitchen', defaultMinutes: 5, defaultTimes: 3, hint: 'Typical: 5-10 min × 2-4 times/day', useMinutes: true },
   'fridge-150': { name: 'Fridge (150W)', watts: 150, category: 'kitchen', defaultHours: 24, hint: 'Runs 24/7 (cycles on/off)' },
