@@ -13,49 +13,49 @@ const TARIFFS = {
   'eskom': { name: 'Eskom Direct', rate: 3.32 }
 };
 
-// Appliance Database
+// Appliance Database with usage hints
 const APPLIANCES = {
   // Heating & Cooling
-  'geyser-3000': { name: 'Geyser (3kW)', watts: 3000, category: 'heating' },
-  'geyser-4500': { name: 'Geyser (4.5kW)', watts: 4500, category: 'heating' },
-  'aircon-1500': { name: 'Air Conditioner (1.5kW)', watts: 1500, category: 'cooling' },
-  'aircon-2000': { name: 'Air Conditioner (2kW)', watts: 2000, category: 'cooling' },
-  'heater-2000': { name: 'Electric Heater (2kW)', watts: 2000, category: 'heating' },
-  'underfloor': { name: 'Underfloor Heating (per 10m²)', watts: 1500, category: 'heating' },
+  'geyser-3000': { name: 'Geyser (3kW)', watts: 3000, category: 'heating', defaultHours: 3, hint: 'Typical: 2-4 hours/day (use a timer!)' },
+  'geyser-4500': { name: 'Geyser (4.5kW)', watts: 4500, category: 'heating', defaultHours: 3, hint: 'Typical: 2-4 hours/day (use a timer!)' },
+  'aircon-1500': { name: 'Air Conditioner (1.5kW)', watts: 1500, category: 'cooling', defaultHours: 6, hint: 'Typical: 4-8 hours/day in summer' },
+  'aircon-2000': { name: 'Air Conditioner (2kW)', watts: 2000, category: 'cooling', defaultHours: 6, hint: 'Typical: 4-8 hours/day in summer' },
+  'heater-2000': { name: 'Electric Heater (2kW)', watts: 2000, category: 'heating', defaultHours: 4, hint: 'Typical: 3-6 hours/day in winter' },
+  'underfloor': { name: 'Underfloor Heating (per 10m²)', watts: 1500, category: 'heating', defaultHours: 6, hint: 'Typical: 4-8 hours/day in winter' },
   
   // Kitchen
-  'stove-2000': { name: 'Stove Plate (2kW)', watts: 2000, category: 'kitchen' },
-  'oven-2400': { name: 'Oven (2.4kW)', watts: 2400, category: 'kitchen' },
-  'kettle-2200': { name: 'Kettle (2.2kW)', watts: 2200, category: 'kitchen' },
-  'microwave-1000': { name: 'Microwave (1kW)', watts: 1000, category: 'kitchen' },
-  'fridge-150': { name: 'Fridge (150W)', watts: 150, category: 'kitchen' },
-  'freezer-200': { name: 'Chest Freezer (200W)', watts: 200, category: 'kitchen' },
-  'dishwasher-1800': { name: 'Dishwasher (1.8kW)', watts: 1800, category: 'kitchen' },
+  'stove-2000': { name: 'Stove Plate (2kW)', watts: 2000, category: 'kitchen', defaultMinutes: 30, defaultTimes: 2, hint: 'Typical: 30-60 min per meal', useMinutes: true },
+  'oven-2400': { name: 'Oven (2.4kW)', watts: 2400, category: 'kitchen', defaultMinutes: 40, defaultTimes: 1, hint: 'Typical: 40-90 min per use', useMinutes: true },
+  'kettle-2200': { name: 'Kettle (2.2kW)', watts: 2200, category: 'kitchen', defaultMinutes: 3, defaultTimes: 6, hint: 'Typical: 3 min × 4-8 times/day', useMinutes: true },
+  'microwave-1000': { name: 'Microwave (1kW)', watts: 1000, category: 'kitchen', defaultMinutes: 5, defaultTimes: 3, hint: 'Typical: 5-10 min × 2-4 times/day', useMinutes: true },
+  'fridge-150': { name: 'Fridge (150W)', watts: 150, category: 'kitchen', defaultHours: 24, hint: 'Runs 24/7 (cycles on/off)' },
+  'freezer-200': { name: 'Chest Freezer (200W)', watts: 200, category: 'kitchen', defaultHours: 24, hint: 'Runs 24/7 (cycles on/off)' },
+  'dishwasher-1800': { name: 'Dishwasher (1.8kW)', watts: 1800, category: 'kitchen', defaultMinutes: 90, defaultTimes: 1, hint: 'Typical: 60-120 min per cycle', useMinutes: true },
   
   // Laundry
-  'washing-machine-2000': { name: 'Washing Machine (2kW)', watts: 2000, category: 'laundry' },
-  'tumble-dryer-2400': { name: 'Tumble Dryer (2.4kW)', watts: 2400, category: 'laundry' },
-  'iron-2000': { name: 'Iron (2kW)', watts: 2000, category: 'laundry' },
+  'washing-machine-2000': { name: 'Washing Machine (2kW)', watts: 2000, category: 'laundry', defaultMinutes: 45, defaultTimes: 1, hint: 'Typical: 45-60 min per load', useMinutes: true },
+  'tumble-dryer-2400': { name: 'Tumble Dryer (2.4kW)', watts: 2400, category: 'laundry', defaultMinutes: 60, defaultTimes: 1, hint: 'Typical: 60-90 min per load', useMinutes: true },
+  'iron-2000': { name: 'Iron (2kW)', watts: 2000, category: 'laundry', defaultMinutes: 20, defaultTimes: 2, hint: 'Typical: 20-40 min × 1-3 times/week', useMinutes: true },
   
   // Electronics
-  'tv-100': { name: 'TV (100W)', watts: 100, category: 'electronics' },
-  'tv-200': { name: 'TV Large (200W)', watts: 200, category: 'electronics' },
-  'computer-300': { name: 'Desktop Computer (300W)', watts: 300, category: 'electronics' },
-  'laptop-60': { name: 'Laptop (60W)', watts: 60, category: 'electronics' },
-  'router-10': { name: 'WiFi Router (10W)', watts: 10, category: 'electronics' },
-  'decoder-20': { name: 'DSTV Decoder (20W)', watts: 20, category: 'electronics' },
-  'gaming-console-150': { name: 'Gaming Console (150W)', watts: 150, category: 'electronics' },
+  'tv-100': { name: 'TV (100W)', watts: 100, category: 'electronics', defaultHours: 5, hint: 'Typical: 4-8 hours/day' },
+  'tv-200': { name: 'TV Large (200W)', watts: 200, category: 'electronics', defaultHours: 5, hint: 'Typical: 4-8 hours/day' },
+  'computer-300': { name: 'Desktop Computer (300W)', watts: 300, category: 'electronics', defaultHours: 8, hint: 'Typical: 6-10 hours/day if WFH' },
+  'laptop-60': { name: 'Laptop (60W)', watts: 60, category: 'electronics', defaultHours: 8, hint: 'Typical: 6-10 hours/day if WFH' },
+  'router-10': { name: 'WiFi Router (10W)', watts: 10, category: 'electronics', defaultHours: 24, hint: 'Usually runs 24/7' },
+  'decoder-20': { name: 'DSTV Decoder (20W)', watts: 20, category: 'electronics', defaultHours: 8, hint: 'Typical: 5-10 hours/day (incl. standby)' },
+  'gaming-console-150': { name: 'Gaming Console (150W)', watts: 150, category: 'electronics', defaultHours: 3, hint: 'Typical: 2-5 hours/day' },
   
   // Lighting
-  'led-bulb-10': { name: 'LED Bulb (10W)', watts: 10, category: 'lighting' },
-  'led-bulb-15': { name: 'LED Bulb (15W)', watts: 15, category: 'lighting' },
-  'cfl-bulb-20': { name: 'CFL Bulb (20W)', watts: 20, category: 'lighting' },
-  'incandescent-60': { name: 'Incandescent Bulb (60W)', watts: 60, category: 'lighting' },
+  'led-bulb-10': { name: 'LED Bulb (10W)', watts: 10, category: 'lighting', defaultHours: 6, hint: 'Typical: 4-8 hours/day per bulb' },
+  'led-bulb-15': { name: 'LED Bulb (15W)', watts: 15, category: 'lighting', defaultHours: 6, hint: 'Typical: 4-8 hours/day per bulb' },
+  'cfl-bulb-20': { name: 'CFL Bulb (20W)', watts: 20, category: 'lighting', defaultHours: 6, hint: 'Typical: 4-8 hours/day per bulb' },
+  'incandescent-60': { name: 'Incandescent Bulb (60W)', watts: 60, category: 'lighting', defaultHours: 6, hint: 'Typical: 4-8 hours/day (switch to LED!)' },
   
   // Pool & Garden
-  'pool-pump-750': { name: 'Pool Pump (750W)', watts: 750, category: 'pool' },
-  'pool-pump-1100': { name: 'Pool Pump (1.1kW)', watts: 1100, category: 'pool' },
-  'borehole-750': { name: 'Borehole Pump (750W)', watts: 750, category: 'garden' }
+  'pool-pump-750': { name: 'Pool Pump (750W)', watts: 750, category: 'pool', defaultHours: 6, hint: 'Typical: 4-8 hours/day (not 24/7!)' },
+  'pool-pump-1100': { name: 'Pool Pump (1.1kW)', watts: 1100, category: 'pool', defaultHours: 6, hint: 'Typical: 4-8 hours/day (not 24/7!)' },
+  'borehole-750': { name: 'Borehole Pump (750W)', watts: 750, category: 'garden', defaultHours: 2, hint: 'Typical: 1-3 hours/day for watering' }
 };
 
 // State
@@ -70,6 +70,7 @@ const applianceSelect = document.getElementById('appliance-select');
 const usageAmountInput = document.getElementById('usage-amount');
 const usageTypeSelect = document.getElementById('usage-type');
 const timesPerDayInput = document.getElementById('times-per-day');
+const usageHintEl = document.getElementById('usage-hint');
 const addApplianceBtn = document.getElementById('add-appliance-btn');
 const applianceList = document.getElementById('appliance-list');
 const calculateBtn = document.getElementById('calculate-btn');
@@ -79,6 +80,7 @@ const loadsheddingSection = document.getElementById('loadshedding-section');
 
 // Event Listeners
 municipalitySelect.addEventListener('change', updateTariff);
+applianceSelect.addEventListener('change', updateDefaults);
 usageTypeSelect.addEventListener('change', toggleUsageMode);
 addApplianceBtn.addEventListener('click', addAppliance);
 calculateBtn.addEventListener('click', calculateCosts);
@@ -86,6 +88,7 @@ calculateBtn.addEventListener('click', calculateCosts);
 // Initialize
 updateTariff();
 toggleUsageMode();
+updateDefaults();
 
 function updateTariff() {
   const municipality = municipalitySelect.value;
@@ -96,6 +99,37 @@ function updateTariff() {
   if (appliances.length > 0) {
     calculateCosts();
   }
+}
+
+function updateDefaults() {
+  const applianceId = applianceSelect.value;
+  if (!applianceId) {
+    usageHintEl.classList.remove('show');
+    return;
+  }
+  
+  const applianceData = APPLIANCES[applianceId];
+  if (!applianceData) return;
+  
+  // Auto-switch to minutes mode if appliance typically uses minutes
+  if (applianceData.useMinutes) {
+    usageTypeSelect.value = 'minutes';
+    usageAmountInput.value = applianceData.defaultMinutes || 1;
+    timesPerDayInput.value = applianceData.defaultTimes || 1;
+  } else {
+    usageTypeSelect.value = 'hours';
+    usageAmountInput.value = applianceData.defaultHours || 1;
+  }
+  
+  // Show hint
+  if (applianceData.hint) {
+    usageHintEl.textContent = `💡 ${applianceData.hint}`;
+    usageHintEl.classList.add('show');
+  } else {
+    usageHintEl.classList.remove('show');
+  }
+  
+  toggleUsageMode();
 }
 
 function toggleUsageMode() {
@@ -153,9 +187,9 @@ function addAppliance() {
   appliances.push(appliance);
   renderApplianceList();
   
-  // Reset inputs
-  usageAmountInput.value = 1;
-  timesPerDayInput.value = 1;
+  // Reset to first appliance in list (triggers updateDefaults)
+  applianceSelect.selectedIndex = 0;
+  updateDefaults();
 }
 
 function removeAppliance(id) {
