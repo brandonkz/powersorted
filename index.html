@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free electricity cost calculator for South Africa. Calculate how much your appliances cost to run, see what to switch off first, and reduce your electricity bill.">
+  <meta name="keywords" content="electricity calculator south africa, electricity cost calculator, geyser electricity cost, aircon running cost, reduce electricity bill, eskom tariff calculator">
+  <title>Electricity Cost Calculator - See What Your Appliances Really Cost | PowerSorted</title>
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Electricity Cost Calculator - PowerSorted">
+  <meta property="og:description" content="Calculate your appliance running costs, see what to switch off first, and cut your electricity bill. Free tool for South Africans.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://powersorted.co.za">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23f59e0b' width='100' height='100' rx='20'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white'>⚡</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-text">PowerSorted</span>
+        </a>
+        <nav class="nav">
+          <a href="#calculator">Calculator</a>
+          <a href="#tips">Tips</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="badge">⚡ Built for South Africa</span>
+        <h1>How Much is Your Electricity Really Costing You?</h1>
+        <p class="hero-subtitle">Select your appliances, see the real costs, and discover what to switch off first. Free calculator with SA municipality tariffs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section id="calculator" class="section">
+    <div class="container">
+      <div class="calculator-layout">
+        <!-- Input Section -->
+        <div class="calculator-card">
+          <h2>Calculate Your Costs</h2>
+          
+          <!-- Municipality Selector -->
+          <div class="form-group">
+            <label for="municipality">Your Municipality</label>
+            <select id="municipality" class="select-input">
+              <option value="cpt">City of Cape Town</option>
+              <option value="jhb">City of Johannesburg</option>
+              <option value="ekurhuleni">Ekurhuleni</option>
+              <option value="ethekwini">eThekwini (Durban)</option>
+              <option value="tshwane">City of Tshwane (Pretoria)</option>
+              <option value="nelson-mandela">Nelson Mandela Bay</option>
+              <option value="eskom" selected>Eskom Direct</option>
+            </select>
+            <div class="tariff-info">
+              Current tariff: <strong id="current-tariff">R 3.32/kWh</strong>
+            </div>
+          </div>
+
+          <!-- Appliance Adder -->
+          <div class="appliance-adder">
+            <h3>Add Your Appliances</h3>
+            <div class="add-form">
+              <select id="appliance-select" class="select-input">
+                <optgroup label="Heating & Cooling">
+                  <option value="geyser-3000">Geyser (3kW)</option>
+                  <option value="geyser-4500">Geyser (4.5kW)</option>
+                  <option value="aircon-1500">Air Conditioner (1.5kW)</option>
+                  <option value="aircon-2000">Air Conditioner (2kW)</option>
+                  <option value="heater-2000">Electric Heater (2kW)</option>
+                  <option value="underfloor">Underfloor Heating (per 10m²)</option>
+                </optgroup>
+                <optgroup label="Kitchen">
+                  <option value="stove-2000">Stove Plate (2kW)</option>
+                  <option value="oven-2400">Oven (2.4kW)</option>
+                  <option value="kettle-2200">Kettle (2.2kW)</option>
+                  <option value="microwave-1000">Microwave (1kW)</option>
+                  <option value="fridge-150">Fridge (150W)</option>
+                  <option value="freezer-200">Chest Freezer (200W)</option>
+                  <option value="dishwasher-1800">Dishwasher (1.8kW)</option>
+                </optgroup>
+                <optgroup label="Laundry">
+                  <option value="washing-machine-2000">Washing Machine (2kW)</option>
+                  <option value="tumble-dryer-2400">Tumble Dryer (2.4kW)</option>
+                  <option value="iron-2000">Iron (2kW)</option>
+                </optgroup>
+                <optgroup label="Electronics">
+                  <option value="tv-100">TV (100W)</option>
+                  <option value="tv-200">TV Large (200W)</option>
+                  <option value="computer-300">Desktop Computer (300W)</option>
+                  <option value="laptop-60">Laptop (60W)</option>
+                  <option value="router-10">WiFi Router (10W)</option>
+                  <option value="decoder-20">DSTV Decoder (20W)</option>
+                  <option value="gaming-console-150">Gaming Console (150W)</option>
+                </optgroup>
+                <optgroup label="Lighting">
+                  <option value="led-bulb-10">LED Bulb (10W)</option>
+                  <option value="led-bulb-15">LED Bulb (15W)</option>
+                  <option value="cfl-bulb-20">CFL Bulb (20W)</option>
+                  <option value="incandescent-60">Incandescent Bulb (60W)</option>
+                </optgroup>
+                <optgroup label="Pool & Garden">
+                  <option value="pool-pump-750">Pool Pump (750W)</option>
+                  <option value="pool-pump-1100">Pool Pump (1.1kW)</option>
+                  <option value="borehole-750">Borehole Pump (750W)</option>
+                </optgroup>
+              </select>
+              <div class="usage-inputs">
+                <input type="number" id="hours-per-day" placeholder="Hours/day" min="0" max="24" step="0.5" value="1">
+                <button id="add-appliance-btn" class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appliance List -->
+          <div id="appliance-list" class="appliance-list">
+            <!-- Populated by JS -->
+          </div>
+
+          <button id="calculate-btn" class="btn-primary">Calculate Costs</button>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-panel">
+          <div id="results-summary" class="results-summary hidden">
+            <h3>Your Electricity Costs</h3>
+            
+            <div class="cost-cards">
+              <div class="cost-card">
+                <div class="cost-label">Daily</div>
+                <div class="cost-value" id="cost-daily">R 0.00</div>
+              </div>
+              <div class="cost-card highlight">
+                <div class="cost-label">Monthly</div>
+                <div class="cost-value" id="cost-monthly">R 0.00</div>
+              </div>
+              <div class="cost-card">
+                <div class="cost-label">Yearly</div>
+                <div class="cost-value" id="cost-yearly">R 0.00</div>
+              </div>
+            </div>
+
+            <div class="total-kwh">
+              Total usage: <strong id="total-kwh">0 kWh</strong> per month
+            </div>
+          </div>
+
+          <!-- Priority List -->
+          <div id="priority-list" class="priority-list hidden">
+            <h3>💡 Switch Off First</h3>
+            <p class="priority-intro">Ranked by cost impact (biggest savings first)</p>
+            <div id="priority-items">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Load Shedding Savings -->
+          <div id="loadshedding-section" class="loadshedding-section hidden">
+            <h3>💡 Load Shedding "Savings"</h3>
+            <p>During Stage 2 (4 hours/day), you'd save approximately:</p>
+            <div class="loadshedding-savings">
+              <span class="savings-amount" id="loadshedding-savings">R 0.00</span>
+              <span class="savings-label">per month</span>
+            </div>
+            <p class="loadshedding-note">Only appliances that would be on during those hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section id="tips" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">How to Cut Your Electricity Bill</h2>
+      
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">🔥</div>
+          <h3>Geyser (Biggest Culprit)</h3>
+          <ul>
+            <li><strong>Install a timer</strong> - Heat only 2-3 hours/day (morning + evening)</li>
+            <li><strong>Turn down temp</strong> - 55-60°C is enough (not 70°C)</li>
+            <li><strong>Insulate pipes</strong> - Reduces heat loss by 30%</li>
+            <li><strong>Blanket it</strong> - Geyser blanket saves 10-15%</li>
+          </ul>
+          <div class="savings-badge">Save: R 300-500/month</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">❄️</div>
+          <h3>Air Conditioning</h3>
+          <ul>
+            <li><strong>Set to 23-24°C</strong> - Every degree lower = 10% more cost</li>
+            <li><strong>Clean filters monthly</strong> - Dirty filters use 15% more power</li>
+            <li><strong>Close doors/curtains</strong> - Keep cool air in</li>
+            <li><strong>Use fans first</strong> - R 2/day vs R 40/day for aircon</li>
+          </ul>
+          <div class="savings-badge">Save: R 200-400/month</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🏊</div>
+          <h3>Pool Pump</h3>
+          <ul>
+            <li><strong>Run 4-6 hours max</strong> - Not 8+ hours</li>
+            <li><strong>Use a timer</strong> - Automate off-peak running</li>
+            <li><strong>Upgrade to variable speed</strong> - 70% savings vs single speed</li>
+            <li><strong>Cover the pool</strong> - Reduces cleaning need</li>
+          </ul>
+          <div class="savings-badge">Save: R 150-300/month</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🍳</div>
+          <h3>Kitchen Appliances</h3>
+          <ul>
+            <li><strong>Kettle: Boil only what you need</strong></li>
+            <li><strong>Stove: Use lids</strong> - Heats 3x faster</li>
+            <li><strong>Oven: Batch cook</strong> - One session instead of multiple</li>
+            <li><strong>Fridge: Keep it full</strong> - Retains cold better</li>
+          </ul>
+          <div class="savings-badge">Save: R 100-200/month</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">💡</div>
+          <h3>Lighting</h3>
+          <ul>
+            <li><strong>Switch to LED</strong> - 80% less power than incandescent</li>
+            <li><strong>Use daylight</strong> - Open curtains, turn off lights</li>
+            <li><strong>Motion sensors</strong> - For bathrooms, passages</li>
+            <li><strong>Dim where possible</strong> - Saves power + bulb life</li>
+          </ul>
+          <div class="savings-badge">Save: R 50-150/month</div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-icon">🧺</div>
+          <h3>Laundry</h3>
+          <ul>
+            <li><strong>Cold water wash</strong> - 90% of washing machine energy is heating water</li>
+            <li><strong>Line dry</strong> - Tumble dryer is a power hog (R 8-12/load)</li>
+            <li><strong>Full loads only</strong> - Don't waste on half loads</li>
+            <li><strong>Spin cycle before drying</strong> - Removes more water</li>
+          </ul>
+          <div class="savings-badge">Save: R 150-250/month</div>
+        </div>
+      </div>
+
+      <div class="pro-tips">
+        <h3>🔋 Pro Tips</h3>
+        <div class="pro-tips-grid">
+          <div class="pro-tip">
+            <strong>Phantom load:</strong> Appliances on standby still use power. Unplug TVs, decoders, phone chargers when not in use. Can save R 50-100/month.
+          </div>
+          <div class="pro-tip">
+            <strong>Off-peak usage:</strong> If you have time-of-use billing, run dishwashers, washing machines, pool pumps between 22:00-06:00 (cheaper rates).
+          </div>
+          <div class="pro-tip">
+            <strong>Solar geyser ROI:</strong> R 15k-25k upfront, saves R 300-500/month. Pays for itself in 3-5 years, then it's pure savings.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>How accurate is this calculator?</h4>
+          <p>Very accurate for estimates. We use manufacturer specifications for wattage and official municipality tariffs. Your actual bill may vary based on usage patterns and billing factors (VAT, levies, fixed charges).</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Why is my geyser so expensive?</h4>
+          <p>A 3kW geyser running 6 hours/day costs R 600-800/month. It's your biggest power user. Install a timer to heat only 2-3 hours per day and save 50-70%.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>What's the cheapest way to heat water?</h4>
+          <p>Solar geyser is cheapest long-term (free sun!). Gas geyser is cheaper to run than electric. Heat pump is 3x more efficient than electric element.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Should I turn my geyser off completely?</h4>
+          <p>No - turning off/on daily causes wear. Use a timer instead: 2 hours morning, 2 hours evening. Or turn down the thermostat to 55-60°C.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Do LED lights really save that much?</h4>
+          <p>Yes! A 60W incandescent costs R 18/month if on 8 hours/day. A 10W LED costs R 3/month for the same light. Replace 10 bulbs = R 150/month savings.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>How can I reduce aircon costs?</h4>
+          <p>Set to 23-24°C (not 18°C), clean filters monthly, close doors/curtains, service annually. Every degree colder = 10% more cost. Consider ceiling fans first.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>What's phantom load?</h4>
+          <p>Power used by devices on standby (TVs, decoders, chargers). Can be 5-10% of your bill (R 50-150/month). Unplug or use power strips you can switch off.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>Is solar worth it?</h4>
+          <p>Yes, especially with rising tariffs. Solar panels: 5-7 year payback. Solar geyser: 3-5 year payback. After that, it's pure savings. Plus load shedding protection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">PowerSorted</span>
+          </div>
+          <p>Independent electricity cost calculator for South Africans. No upselling. Just real costs and practical savings tips.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Tools</h4>
+          <a href="#calculator">Cost Calculator</a>
+          <a href="#tips">Savings Tips</a>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-links">
+          <h4>Family</h4>
+          <a href="https://paidproperly.co.za" target="_blank">PaidProperly</a>
+          <a href="https://betsorted.co.za" target="_blank">BetSorted</a>
+          <a href="https://retirementsorted.co.za" target="_blank">RetirementSorted</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 PowerSorted • Independent energy education</p>
+        <p class="disclaimer">Tariffs updated Feb 2026. Municipality rates may vary. For exact rates, check your latest bill.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
