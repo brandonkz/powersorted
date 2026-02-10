@@ -77,7 +77,7 @@ const applianceList = document.getElementById('appliance-list');
 const calculateBtn = document.getElementById('calculate-btn');
 const resultsSummary = document.getElementById('results-summary');
 const priorityList = document.getElementById('priority-list');
-const loadsheddingSection = document.getElementById('loadshedding-section');
+const optimizationSection = document.getElementById('optimization-section');
 
 // Event Listeners
 municipalitySelect.addEventListener('change', updateTariff);
@@ -201,7 +201,7 @@ function removeAppliance(id) {
   if (appliances.length === 0) {
     resultsSummary.classList.add('hidden');
     priorityList.classList.add('hidden');
-    loadsheddingSection.classList.add('hidden');
+    optimizationSection.classList.add('hidden');
   }
 }
 
@@ -270,7 +270,7 @@ function calculateCosts() {
   generatePriorityList();
   
   // Calculate load shedding "savings"
-  calculateLoadSheddingSavings(totalDailyCost);
+  calculateOptimizationSavings(appliances, totalMonthlyCost);
   
   // Scroll to results
   resultsSummary.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -300,15 +300,67 @@ function generatePriorityList() {
   priorityList.classList.remove('hidden');
 }
 
-function calculateLoadSheddingSavings(totalDailyCost) {
-  // Assume Stage 2 load shedding: 4 hours/day
-  // Appliances that would be off during those hours save money
-  // Simplification: assume 20% of daily usage would be during load shedding
-  const dailySavings = totalDailyCost * 0.20;
-  const monthlySavings = dailySavings * 30;
+function calculateOptimizationSavings(appliances, totalMonthlyCost) {
+  let potentialSavings = 0;
+  const tips = [];
   
-  document.getElementById('loadshedding-savings').textContent = `R ${monthlySavings.toFixed(2)}`;
-  loadsheddingSection.classList.remove('hidden');
+  // Check what appliances they have and calculate savings potential
+  appliances.forEach(app => {
+    const name = app.name.toLowerCase();
+    const monthlyCost = app.cost * 30;
+    
+    // Geyser optimization (timer = 40% savings)
+    if (name.includes('geyser')) {
+      const geyserSavings = monthlyCost * 0.40;
+      potentialSavings += geyserSavings;
+      tips.push(`Install geyser timer (save ~R ${geyserSavings.toFixed(0)}/month)`);
+    }
+    
+    // Aircon optimization (temperature up 2°C = 20% savings)
+    if (name.includes('air con') || name.includes('aircon')) {
+      const airconSavings = monthlyCost * 0.20;
+      potentialSavings += airconSavings;
+      tips.push(`Set aircon to 24°C instead of 18°C (save ~R ${airconSavings.toFixed(0)}/month)`);
+    }
+    
+    // Incandescent to LED (80% savings)
+    if (name.includes('incandescent')) {
+      const ledSavings = monthlyCost * 0.80;
+      potentialSavings += ledSavings;
+      tips.push(`Replace with LED bulbs (save ~R ${ledSavings.toFixed(0)}/month)`);
+    }
+    
+    // Pool pump timer (50% savings)
+    if (name.includes('pool pump')) {
+      const poolSavings = monthlyCost * 0.50;
+      potentialSavings += poolSavings;
+      tips.push(`Run pool pump 4 hours instead of 8 (save ~R ${poolSavings.toFixed(0)}/month)`);
+    }
+    
+    // Tumble dryer → washing line (90% savings)
+    if (name.includes('tumble dryer')) {
+      const dryerSavings = monthlyCost * 0.90;
+      potentialSavings += dryerSavings;
+      tips.push(`Use washing line when possible (save ~R ${dryerSavings.toFixed(0)}/month)`);
+    }
+  });
+  
+  // General optimization baseline (if no specific tips, estimate 10-15% savings)
+  if (potentialSavings === 0) {
+    potentialSavings = totalMonthlyCost * 0.12;
+    tips.push('Use appliances during off-peak hours when possible');
+    tips.push('Turn off standby devices at the wall');
+    tips.push('Clean fridge coils and aircon filters regularly');
+  }
+  
+  // Display optimization potential
+  document.getElementById('optimization-savings').textContent = `R ${potentialSavings.toFixed(2)}`;
+  
+  // Populate tips list
+  const tipsList = document.getElementById('optimization-tips-list');
+  tipsList.innerHTML = tips.slice(0, 3).map(tip => `<li>${tip}</li>`).join('');
+  
+  optimizationSection.classList.remove('hidden');
 }
 
 function formatCurrency(amount) {

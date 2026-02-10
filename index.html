@@ -211,15 +211,20 @@
             </div>
           </div>
 
-          <!-- Load Shedding Savings -->
-          <div id="loadshedding-section" class="loadshedding-section hidden">
-            <h3>💡 Load Shedding "Savings"</h3>
-            <p>During Stage 2 (4 hours/day), you'd save approximately:</p>
-            <div class="loadshedding-savings">
-              <span class="savings-amount" id="loadshedding-savings">R 0.00</span>
+          <!-- Optimization Savings -->
+          <div id="optimization-section" class="optimization-section hidden">
+            <h3>💰 Optimization Potential</h3>
+            <p>With simple best practices (timers, efficient use, temperature adjustments), you could save:</p>
+            <div class="optimization-savings">
+              <span class="savings-amount" id="optimization-savings">R 0.00</span>
               <span class="savings-label">per month</span>
             </div>
-            <p class="loadshedding-note">Only appliances that would be on during those hours</p>
+            <div class="optimization-tips">
+              <p class="optimization-note"><strong>Quick wins:</strong></p>
+              <ul id="optimization-tips-list">
+                <!-- Populated by JS based on appliances -->
+              </ul>
+            </div>
           </div>
         </div>
       </div>

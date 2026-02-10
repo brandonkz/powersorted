@@ -397,7 +397,7 @@ body {
 
 .results-summary,
 .priority-list,
-.loadshedding-section {
+.optimization-section {
   background: var(--color-white);
   border-radius: var(--radius-lg);
   padding: 2rem;
@@ -407,13 +407,13 @@ body {
 
 .results-summary.hidden,
 .priority-list.hidden,
-.loadshedding-section.hidden {
+.optimization-section.hidden {
   display: none;
 }
 
 .results-summary h3,
 .priority-list h3,
-.loadshedding-section h3 {
+.optimization-section h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -507,7 +507,7 @@ body {
 }
 
 /* Load Shedding Section */
-.loadshedding-savings {
+.optimization-savings {
   text-align: center;
   padding: 2rem;
   background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -528,10 +528,28 @@ body {
   opacity: 0.9;
 }
 
-.loadshedding-note {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-  text-align: center;
+.optimization-tips {
+  margin-top: 1.5rem;
+}
+
+.optimization-note {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.optimization-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.optimization-tips li {
+  padding: 0.75rem 1rem;
+  background: var(--color-background);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  border-left: 3px solid var(--color-primary);
 }
 
 /* Tips Grid */
