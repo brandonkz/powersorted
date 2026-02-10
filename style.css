@@ -378,6 +378,16 @@ body {
   transform: none;
 }
 
+/* Calculator Credit (visible in screenshots) */
+.calculator-credit {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  font-weight: 500;
+}
+
 /* Results Panel */
 .results-panel {
   display: flex;
