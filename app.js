@@ -265,6 +265,7 @@ function calculateCosts() {
   document.getElementById('total-kwh').textContent = `${monthlyKwh.toFixed(1)} kWh`;
   
   resultsSummary.classList.remove('hidden');
+  document.getElementById('next-steps')?.classList.remove('hidden');
   
   // Generate priority list
   generatePriorityList();
